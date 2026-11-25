@@ -1,0 +1,12 @@
+# MODE BOOTSTRAP: dipakai selama sertifikat belum ada (HTTP saja).
+# Otomatis dinonaktifkan oleh 40-select-mode.sh begitu sertifikat tersedia.
+server {
+    listen 80;
+    server_name ${DOMAIN} www.${DOMAIN};
+
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    include /etc/nginx/snippets/app.conf;
+}

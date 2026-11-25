@@ -1,0 +1,16 @@
+# Server bawaan port 80: menolak akses lewat IP atau nama host lain.
+# /healthz dipakai healthcheck Docker.
+server {
+    listen 80 default_server;
+    server_name _;
+
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    location / {
+        return 444;
+    }
+}

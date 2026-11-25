@@ -1,0 +1,5 @@
+pymupdf
+openpyxl
+python-docx
+python-pptx
+rapidocr-onnxruntime

@@ -1,0 +1,14 @@
+# MODE HTTPS: port 80 hanya melayani tantangan ACME dan mengalihkan sisanya ke HTTPS.
+server {
+    listen 80;
+    server_name ${DOMAIN} www.${DOMAIN};
+
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    # Alamat kanonis: selalu ke https://${DOMAIN} (www dialihkan ke domain utama)
+    location / {
+        return 301 https://${DOMAIN}$request_uri;
+    }
+}

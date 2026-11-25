@@ -1,0 +1,6 @@
+# Pengaturan tingkat http (selalu aktif)
+server_tokens off;
+
+# Batas laju permintaan per IP, dipakai nanti di location /api (lihat nginx/snippets/app.conf)
+limit_req_zone $binary_remote_addr zone=api:10m rate=120r/m;  # per IP; longgar karena beberapa pemakai bisa berbagi satu jaringan
+limit_req_status 429;

@@ -1,0 +1,37 @@
+# MODE HTTPS: aktif otomatis bila sertifikat ditemukan.
+
+# Tolak handshake TLS untuk akses lewat IP / nama host lain (tidak membocorkan sertifikat).
+server {
+    listen 443 ssl default_server;
+    ssl_reject_handshake on;
+}
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name ${DOMAIN} www.${DOMAIN};
+
+    # www dialihkan ke domain utama (sertifikat mencakup kedua nama)
+    if ($host = www.${DOMAIN}) {
+        return 301 https://${DOMAIN}$request_uri;
+    }
+
+    ssl_certificate    /etc/letsencrypt/live/${DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN}/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1d;
+    ssl_session_tickets off;
+
+    # Catatan: add_header di sini tidak diwariskan ke location yang punya add_header sendiri.
+    add_header Strict-Transport-Security "max-age=15552000" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+    add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" always;
+
+    include /etc/nginx/snippets/app.conf;
+}

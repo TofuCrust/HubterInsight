@@ -1,0 +1,13 @@
+{
+  "name": "HubTer Insight",
+  "short_name": "HubTer",
+  "description": "Tanya jawab berbasis dokumen referensi hukum seputar hubungan keterkaitan dan cukai hasil tembakau.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2f5af0",
+  "theme_color": "#2f5af0",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
