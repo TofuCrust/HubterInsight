@@ -183,9 +183,3 @@ Cara kerja mode Nginx: bila sertifikat belum ada, Nginx jalan HTTP saja (agar bi
 | Certbot gagal `Timeout during connect` | Port 80 belum dibuka di UFW atau firewall panel |
 | Certbot gagal `too many failed authorizations` | Terlalu banyak percobaan; pakai `--dry-run-only` dulu dan tunggu 1 jam |
 | Perlu lihat log | `docker compose logs nginx` / `docker compose logs certbot` |
-
-## Catatan repositori publik
-
-- `backend/corpus/corpus.jsonl` di repositori ini hanya berisi peraturan dan tabel tarif (3.965 bagian). Bahan telaah internal, riwayat diskusi, dan materi paparan tidak disertakan, jadi jawaban situs yang sedang berjalan bisa berbeda dari yang dihasilkan korpus ini.
-- Folder data mentah (`HubTer Insight Data`) tidak ikut. Untuk membangun korpus sendiri, siapkan folder itu lalu jalankan `backend/ingest/build_corpus.py` (lihat bagian di atas).
-- Berkas uji sintetis `synth_questions.json` dan `synth_judged_bm25_v1.json` tidak ikut karena dibangun dari korpus lengkap; `synth_gen.py` dan `synth_judge.py` dapat membuatnya ulang.
